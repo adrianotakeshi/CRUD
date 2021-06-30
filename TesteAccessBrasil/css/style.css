@@ -1,0 +1,17 @@
+﻿div {
+    text-align: center;
+}
+
+.tabcentro {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.formtop {
+    margin-top: 100px;
+}
+
+.tabespaco {
+    padding-left: 20px;
+}
