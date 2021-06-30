@@ -38,47 +38,12 @@ namespace TesteAccessBrasil
         {
             try
             {
-                if (btnSalvar.CommandName.CompareTo("I") == 0)
+            if (btnSalvar.CommandName.CompareTo("I") == 0)
+            {
+                if (txtCodigo.Text == "")
                 {
-                    if (txtCodigo.Text == "")
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Validacao", "alert('Campo Codigo Obrigatório')", true);
-                        txtCodigo.Focus();
-                    }
-                    else
-                    {
-                        if (ddlMarca.SelectedIndex == 0)
-                        {
-                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Validacao", "alert('Campo Marca Obrigatório')", true);
-                            ddlMarca.Focus();
-                        }
-                        else
-                        {
-                            if (txtModelo.Text == "")
-                            {
-                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Validacao", "alert('Campo Modelo Obrigatório')", true);
-                                txtModelo.Focus();
-                            }
-                            else
-                            {
-                                if (txtAno.Text == "")
-                                {
-                                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Validacao", "alert('Campo Ano Obrigatório')", true);
-                                    txtAno.Focus();
-                                }
-                                else
-                                {
-                                    CarrosService service = new CarrosService();
-                                    service.CadastroCarro(int.Parse(txtCodigo.Text), int.Parse(ddlMarca.SelectedItem.Value), txtCor.Text,
-                                        int.Parse(txtAno.Text), txtModelo.Text);
-                                    limpar();
-                                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Sucesso", "alert('Cadastro realizado com sucesso')", true);
-
-                                }
-                            }
-                        }
-                    }
-
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Validacao", "alert('Campo Codigo Obrigatório')", true);
+                    txtCodigo.Focus();
                 }
                 else
                 {
@@ -104,23 +69,58 @@ namespace TesteAccessBrasil
                             else
                             {
                                 CarrosService service = new CarrosService();
-                                service.alterarCarro(int.Parse(txtCodigo.Text), int.Parse(ddlMarca.SelectedItem.Value), txtCor.Text,
+                                service.CadastroCarro(int.Parse(txtCodigo.Text), int.Parse(ddlMarca.SelectedItem.Value), txtCor.Text,
                                     int.Parse(txtAno.Text), txtModelo.Text);
                                 limpar();
-                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Sucesso", "alert('Alteração realizada com sucesso')", true);
+                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Sucesso", "alert('Cadastro realizado com sucesso')", true);
 
                             }
                         }
                     }
                 }
+                
+            }
+            else
+            {
+                if (ddlMarca.SelectedIndex == 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Validacao", "alert('Campo Marca Obrigatório')", true);
+                    ddlMarca.Focus();
+                }
+                else
+                {
+                    if (txtModelo.Text == "")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Validacao", "alert('Campo Modelo Obrigatório')", true);
+                        txtModelo.Focus();
+                    }
+                    else
+                    {
+                        if (txtAno.Text == "")
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Validacao", "alert('Campo Ano Obrigatório')", true);
+                            txtAno.Focus();
+                        }
+                        else
+                        {
+                            CarrosService service = new CarrosService();
+                            service.alterarCarro(int.Parse(txtCodigo.Text), int.Parse(ddlMarca.SelectedItem.Value), txtCor.Text,
+                                int.Parse(txtAno.Text), txtModelo.Text);
+                            limpar();
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Sucesso", "alert('Alteração realizada com sucesso')", true);
 
-                carregarCarros();
+                        }
+                    }
+                }
+            }
+
+            carregarCarros();
             }
             catch (Exception ex)
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Erro", "alert('" + ex.Message + "')", true);
             }
-
+          
 
         }
 

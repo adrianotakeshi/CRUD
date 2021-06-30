@@ -58,30 +58,12 @@ namespace TesteAccessBrasil
         {
             try
             {
-                if (btnSalvar.CommandName.CompareTo("I") == 0)
+            if (btnSalvar.CommandName.CompareTo("I") == 0)
+            {
+                if (txtCodigo.Text == "")
                 {
-                    if (txtCodigo.Text == "")
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Validacao", "alert('Campo Codigo Obrigatório')", true);
-                        txtCodigo.Focus();
-                    }
-                    else
-                    {
-                        if (txtNome.Text == "")
-                        {
-                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Validacao", "alert('Campo Nome Obrigatório')", true);
-                            txtNome.Focus();
-                        }
-                        else
-                        {
-                            MarcasService servico = new MarcasService();
-                            servico.CadastroMarca(Int32.Parse(txtCodigo.Text), txtNome.Text);
-                            carregarMarcas();
-                            limpar();
-                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Sucesso", "alert('Cadastro realizado com sucesso')", true);
-
-                        }
-                    }
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Validacao", "alert('Campo Codigo Obrigatório')", true);
+                    txtCodigo.Focus();
                 }
                 else
                 {
@@ -93,12 +75,30 @@ namespace TesteAccessBrasil
                     else
                     {
                         MarcasService servico = new MarcasService();
-                        servico.alterarMarca(Int32.Parse(txtCodigo.Text), txtNome.Text);
+                        servico.CadastroMarca(Int32.Parse(txtCodigo.Text), txtNome.Text);
                         carregarMarcas();
                         limpar();
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Sucesso", "alert('Alteração realizada com sucesso')", true);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Sucesso", "alert('Cadastro realizado com sucesso')", true);
 
                     }
+                }
+            }
+            else
+            {
+                if (txtNome.Text == "")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Validacao", "alert('Campo Nome Obrigatório')", true);
+                    txtNome.Focus();
+                }
+                else
+                {
+                    MarcasService servico = new MarcasService();
+                    servico.alterarMarca(Int32.Parse(txtCodigo.Text), txtNome.Text);
+                    carregarMarcas();
+                    limpar();
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Sucesso", "alert('Alteração realizada com sucesso')", true);
+
+                }
                 }
             }
             catch (Exception ex)
@@ -106,7 +106,7 @@ namespace TesteAccessBrasil
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Erro", "alert('" + ex.Message + "')", true);
             }
 
-
+       
 
 
         }
